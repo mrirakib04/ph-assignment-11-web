@@ -1,4 +1,5 @@
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router";
+import App from "../App";
 import ErrorPage from "./ErrorPage";
 import Main from "../Layout/Main/Main";
 import Home from "../Layout/Main/Home/Home";
@@ -10,6 +11,16 @@ import Booking from "../Layout/Main/Booking/Booking";
 import Profile from "../Layout/Main/Profile/Profile";
 import About from "../Layout/Main/About/About";
 import Dashboard from "../Layout/Dashboard/Dashboard";
+import DashboardHome from "../Layout/Dashboard/DashboardHome/DashboardHome";
+import AdminAllOrders from "../Layout/Dashboard/Admin/AdminAllOrders/AdminAllOrders";
+import AdminAllProducts from "../Layout/Dashboard/Admin/AdminAllProducts/AdminAllProducts";
+import AdminManageUsers from "../Layout/Dashboard/Admin/AdminManageUsers/AdminManageUsers";
+import ManagerAddProduct from "../Layout/Dashboard/Manager/ManagerAddProduct/ManagerAddProduct";
+import ManagerManageProducts from "../Layout/Dashboard/Manager/ManagerManageProducts/ManagerManageProducts";
+import ManagerPendingOrders from "../Layout/Dashboard/Manager/ManagerPendingOrders/ManagerPendingOrders";
+import UpdateProduct from "../Layout/Dashboard/Manager/UpdateProduct/UpdateProduct";
+import UserMyOrders from "../Layout/Dashboard/Buyer/UserMyOrders/UserMyOrders";
+import UserTrackOrder from "../Layout/Dashboard/Buyer/UserTrackOrder/UserTrackOrder";
 
 const Router = () => {
   return (
@@ -32,7 +43,55 @@ const Router = () => {
             <Route path="/profile" element={<Profile></Profile>}></Route>
             <Route path="/about" element={<About></About>}></Route>
           </Route>
-          <Route path="/dashboard" element={<Dashboard></Dashboard>}></Route>
+          <Route path="/dashboard" element={<Dashboard></Dashboard>}>
+            <Route
+              path="/dashboard"
+              element={<Navigate to={"/dashboard/home"}></Navigate>}
+            ></Route>
+            <Route
+              path="/dashboard/home"
+              element={<DashboardHome></DashboardHome>}
+            ></Route>
+            {/* Admin  */}
+            <Route
+              path="/dashboard/all-orders"
+              element={<AdminAllOrders></AdminAllOrders>}
+            ></Route>
+            <Route
+              path="/dashboard/all-products"
+              element={<AdminAllProducts></AdminAllProducts>}
+            ></Route>
+            <Route
+              path="/dashboard/manage-users"
+              element={<AdminManageUsers></AdminManageUsers>}
+            ></Route>
+            {/* Manager  */}
+            <Route
+              path="/dashboard/"
+              element={<ManagerAddProduct></ManagerAddProduct>}
+            ></Route>
+            <Route
+              path="/dashboard/"
+              element={<ManagerManageProducts></ManagerManageProducts>}
+            ></Route>
+            <Route
+              path="/dashboard/"
+              element={<ManagerPendingOrders></ManagerPendingOrders>}
+            ></Route>
+            <Route
+              path="/dashboard/"
+              element={<UpdateProduct></UpdateProduct>}
+            ></Route>
+            {/* Buyer  */}
+            <Route
+              path="/dashboard/my-orders"
+              element={<UserMyOrders></UserMyOrders>}
+            ></Route>
+            <Route
+              path="/dashboard/track-order"
+              element={<UserTrackOrder></UserTrackOrder>}
+            ></Route>
+          </Route>
         </Route>
         <Route path="*" element={<ErrorPage></ErrorPage>}></Route>
       </Routes>
