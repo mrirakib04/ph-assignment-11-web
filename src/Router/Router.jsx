@@ -67,19 +67,19 @@ const Router = () => {
             ></Route>
             {/* Manager  */}
             <Route
-              path="/dashboard/"
+              path="/dashboard/add-product"
               element={<ManagerAddProduct></ManagerAddProduct>}
             ></Route>
             <Route
-              path="/dashboard/"
+              path="/dashboard/manage-products"
               element={<ManagerManageProducts></ManagerManageProducts>}
             ></Route>
             <Route
-              path="/dashboard/"
+              path="/dashboard/pending-orders"
               element={<ManagerPendingOrders></ManagerPendingOrders>}
             ></Route>
             <Route
-              path="/dashboard/"
+              path="/dashboard/update-products/:id"
               element={<UpdateProduct></UpdateProduct>}
             ></Route>
             {/* Buyer  */}
