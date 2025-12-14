@@ -21,6 +21,7 @@ import ManagerPendingOrders from "../Layout/Dashboard/Manager/ManagerPendingOrde
 import UpdateProduct from "../Layout/Dashboard/Manager/UpdateProduct/UpdateProduct";
 import UserMyOrders from "../Layout/Dashboard/Buyer/UserMyOrders/UserMyOrders";
 import UserTrackOrder from "../Layout/Dashboard/Buyer/UserTrackOrder/UserTrackOrder";
+import Forgot from "../Layout/Main/Auth/Forgot";
 
 const Router = () => {
   return (
@@ -31,6 +32,7 @@ const Router = () => {
             <Route path="/" element={<Home></Home>}></Route>
             <Route path="/login" element={<Login></Login>}></Route>
             <Route path="/register" element={<Register></Register>}></Route>
+            <Route path="/forgot" element={<Forgot></Forgot>}></Route>
             <Route
               path="/products"
               element={<AllProducts></AllProducts>}
