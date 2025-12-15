@@ -19,20 +19,31 @@ import Loader from "../../../../Components/Loader";
 import Swal from "sweetalert2";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
+import { Pagination } from "@mui/material";
+import { useState } from "react";
+import { useNavigate } from "react-router";
 
 const AdminAllProducts = () => {
   const { user } = useContext(MainContext);
   const AxiosPublic = useAxiosPublic();
   const queryClient = useQueryClient();
+  const [page, setPage] = useState(1);
+  const limit = 10;
+  const navigate = useNavigate();
 
-  const { data: products = [], isLoading } = useQuery({
-    queryKey: ["adminProducts", user?.email],
+  const { data, isLoading } = useQuery({
+    queryKey: ["adminProducts", user?.email, page],
     enabled: !!user?.email,
     queryFn: async () => {
-      const res = await AxiosPublic.get(`/products?owner=${user.email}`);
+      const res = await AxiosPublic.get(
+        `/admin/products?owner=${user.email}&page=${page}&limit=${limit}`
+      );
       return res.data;
     },
   });
+
+  const products = data?.products || [];
+  const totalPages = data?.totalPages || 1;
 
   // update to show homepage
   const handleToggleHome = async (id, currentValue) => {
@@ -107,13 +118,21 @@ const AdminAllProducts = () => {
                   </TableCell>
 
                   <TableCell>
-                    <Button size="small" variant="outlined">
+                    <Button
+                      type="button"
+                      size="small"
+                      variant="outlined"
+                      onClick={() =>
+                        navigate(`/dashboard/update-products/${product._id}`)
+                      }
+                    >
                       Update
                     </Button>
+
                     <Button
                       size="small"
                       color="error"
-                      variant="outlined"
+                      variant="contained"
                       sx={{ ml: 1 }}
                       onClick={() => handleDelete(product._id)}
                     >
@@ -126,6 +145,14 @@ const AdminAllProducts = () => {
           </Table>
         </TableContainer>
       )}
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
+        <Pagination
+          count={totalPages}
+          page={page}
+          onChange={(e, value) => setPage(value)}
+          color="primary"
+        />
+      </Box>
     </Box>
   );
 };
