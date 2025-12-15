@@ -16,10 +16,14 @@ import { useQuery } from "@tanstack/react-query";
 import MainContext from "../../../../Context/MainContext";
 import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
 import Loader from "../../../../Components/Loader";
+import Swal from "sweetalert2";
+import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 
 const AdminAllProducts = () => {
   const { user } = useContext(MainContext);
   const AxiosPublic = useAxiosPublic();
+  const queryClient = useQueryClient();
 
   const { data: products = [], isLoading } = useQuery({
     queryKey: ["adminProducts", user?.email],
@@ -29,6 +33,24 @@ const AdminAllProducts = () => {
       return res.data;
     },
   });
+
+  // delete product
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This product will be permanently deleted!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await AxiosPublic.delete(`/products/${id}`);
+        toast.success("Product deleted");
+        queryClient.invalidateQueries(["adminProducts", user?.email]);
+      }
+    });
+  };
 
   return (
     <Box sx={{ p: 3 }}>
@@ -78,6 +100,7 @@ const AdminAllProducts = () => {
                       color="error"
                       variant="outlined"
                       sx={{ ml: 1 }}
+                      onClick={() => handleDelete(product._id)}
                     >
                       Delete
                     </Button>
