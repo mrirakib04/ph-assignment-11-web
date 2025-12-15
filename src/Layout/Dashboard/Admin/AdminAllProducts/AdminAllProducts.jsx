@@ -34,6 +34,16 @@ const AdminAllProducts = () => {
     },
   });
 
+  // update to show homepage
+  const handleToggleHome = async (id, currentValue) => {
+    await AxiosPublic.patch(`/products/show-home/${id}`, {
+      showOnHome: !currentValue,
+    });
+
+    toast.success("Updated Home Visibility");
+    queryClient.invalidateQueries(["adminProducts", user?.email]);
+  };
+
   // delete product
   const handleDelete = (id) => {
     Swal.fire({
@@ -88,7 +98,12 @@ const AdminAllProducts = () => {
                   <TableCell>{product.productOwner}</TableCell>
 
                   <TableCell>
-                    <Switch checked={product.showOnHome} disabled />
+                    <Switch
+                      checked={product.showOnHome}
+                      onChange={() =>
+                        handleToggleHome(product._id, product.showOnHome)
+                      }
+                    />
                   </TableCell>
 
                   <TableCell>
