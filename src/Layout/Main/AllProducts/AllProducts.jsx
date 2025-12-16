@@ -14,6 +14,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useNavigate } from "react-router";
 import Loader from "../../../Components/Loader";
+import Pagination from "@mui/material/Pagination";
 
 const AllProducts = () => {
   const AxiosPublic = useAxiosPublic();
@@ -23,17 +24,22 @@ const AllProducts = () => {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("");
 
-  const { data: products = [], isLoading } = useQuery({
-    queryKey: ["allProducts", category, search, sort],
+  const [page, setPage] = useState(1);
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["allProducts", category, search, sort, page],
     queryFn: async () => {
       const res = await AxiosPublic.get("/general/page/products", {
-        params: { category, search, sort },
+        params: { category, search, sort, page },
       });
       return res.data;
     },
     retry: 1,
   });
-  console.log(products);
+
+  const products = data?.products || [];
+  const totalPages = data?.totalPages || 1;
+
   return (
     <Box sx={{ p: 3 }}>
       <Typography variant="h5" fontWeight="bold" mb={2}>
@@ -126,46 +132,14 @@ const AllProducts = () => {
           ))}
         </div>
       )}
-      {/* Products Grid */}
-      <div className="grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
-        {products.map((product) => (
-          <Grid key={product._id}>
-            <Card>
-              <CardMedia
-                component="img"
-                height="200"
-                image={product.image}
-                alt={product.title}
-              />
-
-              <CardContent>
-                <Typography variant="h6" fontWeight="bold">
-                  {product.title}
-                </Typography>
-
-                <Typography variant="body2" color="text.secondary">
-                  Category: {product.category}
-                </Typography>
-
-                <Typography mt={1}>Price: ৳{product.price}</Typography>
-
-                <Typography variant="body2">
-                  Available: {product.quantity}
-                </Typography>
-
-                <Button
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 2 }}
-                  onClick={() => navigate(`/product/${product._id}`)}
-                >
-                  View Details
-                </Button>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </div>
+      <Box className="flex justify-center mt-10">
+        <Pagination
+          count={totalPages}
+          page={page}
+          onChange={(e, value) => setPage(value)}
+          color="primary"
+        />
+      </Box>
     </Box>
   );
 };
