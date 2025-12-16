@@ -26,6 +26,7 @@ const AdminManageUsers = () => {
   const queryClient = useQueryClient();
   const [search, setSearch] = useState("");
   const { user } = useContext(MainContext);
+  const adminEmail = user?.email;
 
   const { data: users = [], isLoading } = useQuery({
     queryKey: ["allUsers"],
@@ -92,6 +93,21 @@ const AdminManageUsers = () => {
       toast.error("Failed to assign Manager");
     }
   };
+  // discharge manager
+  const handleDischarge = async (userEmail) => {
+    try {
+      const res = await AxiosPublic.put(`/users/discharge/${userEmail}`, {
+        managerFor: "",
+      });
+
+      if (res.status === 200) {
+        toast.success("Manager discharged successfully");
+        queryClient.invalidateQueries(["allUsers"]);
+      }
+    } catch (err) {
+      toast.error("Failed to discharge Manager");
+    }
+  };
 
   if (isLoading) return <Loader />;
 
@@ -148,6 +164,7 @@ const AdminManageUsers = () => {
                   {(user.status === "suspended" && "Suspended") ||
                     (user.status === "pending" && "Pending") ||
                     "Active"}
+                  {user?.managerFor && " and Assigned"}
                 </TableCell>
 
                 <TableCell>
@@ -181,17 +198,19 @@ const AdminManageUsers = () => {
                           Assign
                         </Button>
                       )}
-                      {user?.managerFor && user.role === "Manager" && (
-                        <Button
-                          color="error"
-                          size="small"
-                          variant="contained"
-                          sx={{ ml: 1 }}
-                          onClick={() => handleAssign(user.email)}
-                        >
-                          Remove
-                        </Button>
-                      )}
+                      {user?.managerFor &&
+                        user.role === "Manager" &&
+                        user.managerFor === adminEmail && (
+                          <Button
+                            color="error"
+                            size="small"
+                            variant="contained"
+                            sx={{ ml: 1 }}
+                            onClick={() => handleDischarge(user.email)}
+                          >
+                            Discharge
+                          </Button>
+                        )}
                       {user.status === "pending" && user.role !== "Admin" && (
                         <Button
                           size="small"
