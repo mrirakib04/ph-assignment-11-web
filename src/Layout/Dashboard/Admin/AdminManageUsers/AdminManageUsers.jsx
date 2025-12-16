@@ -20,6 +20,7 @@ import { toast } from "react-toastify";
 import Loader from "../../../../Components/Loader";
 import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
 import MainContext from "../../../../Context/MainContext";
+import { HeadProvider, Title } from "react-head";
 
 const AdminManageUsers = () => {
   const AxiosPublic = useAxiosPublic();
@@ -113,6 +114,9 @@ const AdminManageUsers = () => {
 
   return (
     <Box sx={{ p: 3 }}>
+      <HeadProvider>
+        <Title>Manage Users || NextRun Tracker</Title>
+      </HeadProvider>
       <Typography variant="h5" fontWeight="bold" mb={2}>
         Manage Users
       </Typography>

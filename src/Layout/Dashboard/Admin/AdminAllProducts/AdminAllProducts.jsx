@@ -22,6 +22,7 @@ import { toast } from "react-toastify";
 import { Pagination } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { HeadProvider, Title } from "react-head";
 
 const AdminAllProducts = () => {
   const { user } = useContext(MainContext);
@@ -75,6 +76,9 @@ const AdminAllProducts = () => {
 
   return (
     <Box sx={{ p: 3 }}>
+      <HeadProvider>
+        <Title>Manage Products || NextRun Tracker</Title>
+      </HeadProvider>
       <Typography variant="h5" fontWeight="bold" mb={3}>
         All Products (Admin)
       </Typography>

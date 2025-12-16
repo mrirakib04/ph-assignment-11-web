@@ -15,6 +15,7 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useNavigate } from "react-router";
 import Loader from "../../../Components/Loader";
 import Pagination from "@mui/material/Pagination";
+import { HeadProvider, Title } from "react-head";
 
 const AllProducts = () => {
   const AxiosPublic = useAxiosPublic();
@@ -42,6 +43,9 @@ const AllProducts = () => {
 
   return (
     <Box sx={{ p: 3 }}>
+      <HeadProvider>
+        <Title>All Products || NextRun Tracker</Title>
+      </HeadProvider>
       <Typography variant="h5" fontWeight="bold" mb={2}>
         All Products
       </Typography>
