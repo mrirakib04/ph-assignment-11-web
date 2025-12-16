@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   Box,
   Paper,
@@ -19,11 +19,13 @@ import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import Loader from "../../../../Components/Loader";
 import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
+import MainContext from "../../../../Context/MainContext";
 
 const AdminManageUsers = () => {
   const AxiosPublic = useAxiosPublic();
   const queryClient = useQueryClient();
   const [search, setSearch] = useState("");
+  const { user } = useContext(MainContext);
 
   const { data: users = [], isLoading } = useQuery({
     queryKey: ["allUsers"],
@@ -32,6 +34,8 @@ const AdminManageUsers = () => {
       return res.data;
     },
   });
+
+  console.log(users);
 
   const filteredUsers = users.filter(
     (u) =>
@@ -71,6 +75,22 @@ const AdminManageUsers = () => {
     await AxiosPublic.patch(`/users/activate/${id}`);
     toast.success("User activated");
     queryClient.invalidateQueries(["allUsers"]);
+  };
+
+  // assign manager
+  const handleAssign = async (userEmail) => {
+    try {
+      const res = await AxiosPublic.put(`/users/assign/${userEmail}`, {
+        managerFor: user.email,
+      });
+
+      if (res.status === 200) {
+        toast.success("Manager assigned successfully");
+        queryClient.invalidateQueries(["allUsers"]);
+      }
+    } catch (err) {
+      toast.error("Failed to assign Manager");
+    }
   };
 
   if (isLoading) return <Loader />;
@@ -150,6 +170,28 @@ const AdminManageUsers = () => {
                       >
                         Suspend
                       </Button>
+                      {!user?.managerFor && user.role === "Manager" && (
+                        <Button
+                          color="primary"
+                          size="small"
+                          variant="contained"
+                          sx={{ ml: 1 }}
+                          onClick={() => handleAssign(user.email)}
+                        >
+                          Assign
+                        </Button>
+                      )}
+                      {user?.managerFor && user.role === "Manager" && (
+                        <Button
+                          color="error"
+                          size="small"
+                          variant="contained"
+                          sx={{ ml: 1 }}
+                          onClick={() => handleAssign(user.email)}
+                        >
+                          Remove
+                        </Button>
+                      )}
                       {user.status === "pending" && user.role !== "Admin" && (
                         <Button
                           size="small"
