@@ -22,6 +22,7 @@ import UpdateProduct from "../Layout/Dashboard/Manager/UpdateProduct/UpdateProdu
 import UserMyOrders from "../Layout/Dashboard/Buyer/UserMyOrders/UserMyOrders";
 import UserTrackOrder from "../Layout/Dashboard/Buyer/UserTrackOrder/UserTrackOrder";
 import Forgot from "../Layout/Main/Auth/Forgot";
+import CheckoutPayment from "../Layout/Main/Payment/CheckoutPayment";
 
 const Router = () => {
   return (
@@ -42,6 +43,10 @@ const Router = () => {
               element={<ProductDetails></ProductDetails>}
             ></Route>
             <Route path="/booking/:id" element={<Booking></Booking>}></Route>
+            <Route
+              path="/payment"
+              element={<CheckoutPayment></CheckoutPayment>}
+            ></Route>
             <Route path="/profile" element={<Profile></Profile>}></Route>
             <Route path="/about" element={<About></About>}></Route>
           </Route>
