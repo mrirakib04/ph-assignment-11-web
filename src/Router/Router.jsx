@@ -23,6 +23,7 @@ import UserMyOrders from "../Layout/Dashboard/Buyer/UserMyOrders/UserMyOrders";
 import UserTrackOrder from "../Layout/Dashboard/Buyer/UserTrackOrder/UserTrackOrder";
 import Forgot from "../Layout/Main/Auth/Forgot";
 import CheckoutPayment from "../Layout/Main/Payment/CheckoutPayment";
+import PaymentSuccess from "../Layout/Main/Payment/PaymentSuccess";
 
 const Router = () => {
   return (
@@ -46,6 +47,10 @@ const Router = () => {
             <Route
               path="/payment"
               element={<CheckoutPayment></CheckoutPayment>}
+            ></Route>
+            <Route
+              path="/payment-success"
+              element={<PaymentSuccess></PaymentSuccess>}
             ></Route>
             <Route path="/profile" element={<Profile></Profile>}></Route>
             <Route path="/about" element={<About></About>}></Route>
