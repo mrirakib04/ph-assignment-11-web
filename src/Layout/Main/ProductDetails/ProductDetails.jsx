@@ -13,6 +13,7 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+import { HeadProvider, Title } from "react-head";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -55,6 +56,9 @@ const ProductDetails = () => {
 
   return (
     <Box className="px-5 py-10 flex justify-center">
+      <HeadProvider>
+        <Title>Product Details || NextRun Tracker</Title>
+      </HeadProvider>
       <Box className="max-w-6xl w-full flex flex-col md:flex-row gap-10 border rounded-lg shadow-lg p-5 bg-white">
         {/* Slider */}
         <Box className="w-full md:w-1/2">

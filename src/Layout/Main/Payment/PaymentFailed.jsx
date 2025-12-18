@@ -7,7 +7,7 @@ const PaymentFailed = () => {
   return (
     <div className="text-center py-20">
       <HeadProvider>
-        <Title>Payment Failed || ScholarStream</Title>
+        <Title>Payment Failed || NextRun Tracker</Title>
       </HeadProvider>
       <h1 className="text-2xl font-bold text-red-600">Payment Failed ❌</h1>
 

@@ -4,6 +4,7 @@ import { Box, Typography, Button, Paper } from "@mui/material";
 import { toast } from "react-toastify";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import MainContext from "../../../Context/MainContext";
+import { HeadProvider, Title } from "react-head";
 
 const PaymentSuccess = () => {
   const location = useLocation();
@@ -65,6 +66,9 @@ const PaymentSuccess = () => {
 
   return (
     <Box display="flex" justifyContent="center" mt={10} px={2}>
+      <HeadProvider>
+        <Title>Payment Successful || NextRun Tracker</Title>
+      </HeadProvider>
       <Paper
         elevation={3}
         sx={{ p: 5, maxWidth: 500, width: "100%", textAlign: "center" }}

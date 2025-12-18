@@ -6,6 +6,7 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import { useContext } from "react";
 import MainContext from "../../../Context/MainContext";
 import { FcGoogle } from "react-icons/fc";
+import { HeadProvider, Title } from "react-head";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -109,6 +110,9 @@ const Login = () => {
         py: 10,
       }}
     >
+      <HeadProvider>
+        <Title>Login || NextRun Tracker</Title>
+      </HeadProvider>
       <Paper elevation={4} sx={{ maxWidth: 420, width: "100%", p: 4 }}>
         <Typography variant="h5" fontWeight="bold" textAlign="center" mb={3}>
           Login

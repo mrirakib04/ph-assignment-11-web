@@ -6,6 +6,7 @@ import MainContext from "../../../Context/MainContext";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import Loader from "../../../Components/Loader";
 import { toast } from "react-toastify";
+import { HeadProvider, Title } from "react-head";
 
 const Booking = () => {
   const { id } = useParams();
@@ -83,6 +84,9 @@ const Booking = () => {
 
   return (
     <Box className="px-5 py-10 flex justify-center">
+      <HeadProvider>
+        <Title>Booking || NextRun Tracker</Title>
+      </HeadProvider>
       <Box className="max-w-3xl w-full bg-white p-6 rounded-lg shadow border">
         <Typography variant="h5" fontWeight="bold" mb={2}>
           Booking / Order Form

@@ -14,6 +14,7 @@ import { useContext } from "react";
 import MainContext from "../../../Context/MainContext";
 import { updateProfile } from "firebase/auth";
 import { FcGoogle } from "react-icons/fc";
+import { HeadProvider, Title } from "react-head";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -148,6 +149,9 @@ const Register = () => {
         py: 10,
       }}
     >
+      <HeadProvider>
+        <Title>Register || NextRun Tracker</Title>
+      </HeadProvider>
       <Paper elevation={4} sx={{ maxWidth: 420, width: "100%", p: 4 }}>
         <Typography variant="h5" fontWeight="bold" textAlign="center" mb={3}>
           Create Account
