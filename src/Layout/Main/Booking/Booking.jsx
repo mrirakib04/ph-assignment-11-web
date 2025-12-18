@@ -48,6 +48,7 @@ const Booking = () => {
     }
 
     const bookingData = {
+      orderTo: product.productOwner,
       productId: product._id,
       productTitle: product.title,
       pricePerUnit: product.price,

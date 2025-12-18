@@ -40,6 +40,7 @@ const PaymentSuccess = () => {
 
         // 2️ Create order
         await axiosPublic.post("/orders", {
+          orderTo: booking.orderTo,
           productId: booking.productId,
           productTitle: booking.productTitle,
           orderQuantity: booking.orderQuantity,
