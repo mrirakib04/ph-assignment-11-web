@@ -54,7 +54,7 @@ const UpdateProduct = () => {
     try {
       await axiosPublic.patch(`/update/product/${id}`, updatedProduct);
       toast.success("Product updated successfully");
-      navigate("/dashboard/all-products");
+      navigate("/dashboard/home");
     } catch (error) {
       console.error(error);
       toast.error("Failed to update product");

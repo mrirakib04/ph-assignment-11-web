@@ -25,6 +25,7 @@ import Forgot from "../Layout/Main/Auth/Forgot";
 import CheckoutPayment from "../Layout/Main/Payment/CheckoutPayment";
 import PaymentSuccess from "../Layout/Main/Payment/PaymentSuccess";
 import PaymentFailed from "../Layout/Main/Payment/PaymentFailed";
+import ManagerApprovedOrders from "../Layout/Dashboard/Manager/ManagerApprovedOrders/ManagerApprovedOrders";
 
 const Router = () => {
   return (
@@ -94,6 +95,10 @@ const Router = () => {
             <Route
               path="/dashboard/pending-orders"
               element={<ManagerPendingOrders></ManagerPendingOrders>}
+            ></Route>
+            <Route
+              path="/dashboard/approved-orders"
+              element={<ManagerApprovedOrders></ManagerApprovedOrders>}
             ></Route>
             <Route
               path="/dashboard/update-products/:id"
