@@ -8,6 +8,7 @@ import {
   MdLocalShipping,
   MdPendingActions,
   MdListAlt,
+  MdOutlinePendingActions,
 } from "react-icons/md";
 import { FiFileText } from "react-icons/fi";
 import { FaHome } from "react-icons/fa";
@@ -66,8 +67,13 @@ const Sidebar = ({ role }) => {
       icon: <MdInventory />,
     },
     {
+      to: "/dashboard/approved-orders",
+      label: "Approved Orders",
+      icon: <MdOutlinePendingActions />,
+    },
+    {
       to: "/dashboard/pending-orders",
-      label: "Manage Orders",
+      label: "Pending Orders",
       icon: <MdPendingActions />,
     },
   ];
