@@ -21,6 +21,7 @@ import "jspdf-autotable";
 import Loader from "../../../../Components/Loader";
 import MainContext from "../../../../Context/MainContext";
 import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
+import Swal from "sweetalert2";
 
 const UserMyOrders = () => {
   const { user } = useContext(MainContext);
@@ -48,17 +49,25 @@ const UserMyOrders = () => {
 
   // cancel order (pending only)
   const handleCancel = async (id) => {
-    const confirm = window.confirm(
-      "Are you sure you want to cancel this order?"
-    );
-    if (!confirm) return;
+    const result = await Swal.fire({
+      title: "Cancel this order?",
+      text: "This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, cancel it",
+      cancelButtonText: "No",
+    });
+
+    if (!result.isConfirmed) return;
 
     try {
       await AxiosPublic.patch(`/orders/cancel/${id}`);
-      toast.success("Order cancelled");
+      toast.success("Order cancelled successfully");
       queryClient.invalidateQueries(["myOrders"]);
-    } catch {
-      toast.error("Failed to cancel order");
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Failed to cancel order");
     }
   };
 
@@ -149,7 +158,9 @@ const UserMyOrders = () => {
                   {order._id}
                 </TableCell>
 
-                <TableCell>{order.productTitle}</TableCell>
+                <TableCell className="truncate min-w-2">
+                  {order.productTitle}
+                </TableCell>
                 <TableCell>{order.orderQuantity}</TableCell>
 
                 <TableCell>
@@ -192,6 +203,7 @@ const UserMyOrders = () => {
                     <Button
                       size="small"
                       color="error"
+                      variant="contained"
                       onClick={() => handleCancel(order._id)}
                     >
                       Cancel

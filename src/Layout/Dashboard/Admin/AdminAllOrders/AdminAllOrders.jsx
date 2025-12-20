@@ -26,7 +26,7 @@ import MainContext from "../../../../Context/MainContext";
 import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
 import Loader from "../../../../Components/Loader";
 
-const statuses = ["pending", "approved", "rejected"];
+const statuses = ["pending", "approved", "rejected", "cancelled"];
 const trackingStatuses = [
   "Cutting Completed",
   "Sewing Started",
@@ -183,7 +183,7 @@ const AdminAllOrders = () => {
                   <TableCell>{order.productTitle}</TableCell>
                   <TableCell>{order.orderQuantity}</TableCell>
                   <TableCell>{order.orderStatus}</TableCell>
-                  <TableCell align="center">
+                  <TableCell className="flex! gap-2" align="center">
                     {order.orderStatus === "pending" && (
                       <>
                         <Button
@@ -196,13 +196,19 @@ const AdminAllOrders = () => {
                         <Button
                           size="small"
                           color="error"
-                          sx={{ ml: 1 }}
                           onClick={() => handleReject(order._id)}
                         >
                           Reject
                         </Button>
                       </>
                     )}
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      onClick={() => handleView(order)}
+                    >
+                      View
+                    </Button>
                     {order.orderStatus === "approved" && (
                       <Button
                         size="small"
@@ -212,20 +218,12 @@ const AdminAllOrders = () => {
                         Add Tracking
                       </Button>
                     )}
-                    <Button
-                      size="small"
-                      variant="outlined"
-                      sx={{ mx: 1 }}
-                      onClick={() => handleView(order)}
-                    >
-                      View
-                    </Button>
+
                     {order.orderStatus === "approved" && (
                       <Button
                         size="small"
                         color="error"
                         variant="contained"
-                        sx={{ mx: 1 }}
                         onClick={() => handleReject(order._id)}
                       >
                         Reject
@@ -236,7 +234,6 @@ const AdminAllOrders = () => {
                         size="small"
                         color="success"
                         variant="contained"
-                        sx={{ mx: 1 }}
                         onClick={() => handleApprove(order._id)}
                       >
                         Approve
