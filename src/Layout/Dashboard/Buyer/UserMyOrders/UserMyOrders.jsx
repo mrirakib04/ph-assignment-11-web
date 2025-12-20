@@ -158,9 +158,7 @@ const UserMyOrders = () => {
                   {order._id}
                 </TableCell>
 
-                <TableCell className="truncate min-w-2">
-                  {order.productTitle}
-                </TableCell>
+                <TableCell className="truncate">{order.productTitle}</TableCell>
                 <TableCell>{order.orderQuantity}</TableCell>
 
                 <TableCell>
