@@ -14,8 +14,10 @@ const DashboardHome = () => {
       </HeadProvider>
       <div className="w-full py-10 md:py-16 text-center bg-linear-to-r from-cyan-100 via-white to-cyan-100 md:text-3xl sm:text-2xl text-lg font-medium">
         Welcome{" "}
-        <span className="font-semibold italic">{userName || "User"}</span> in
-        NextRun Tracker
+        <span className="font-semibold italic text-sky-700">
+          {userName || "User"}
+        </span>{" "}
+        in NextRun Tracker
       </div>
       <DashboardStats></DashboardStats>
       <OrderStatusChart></OrderStatusChart>
