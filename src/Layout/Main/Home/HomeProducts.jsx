@@ -58,7 +58,7 @@ const HomeProducts = () => {
               <p className="text-sm text-gray-600 line-clamp-2 mt-1">
                 <span className="font-medium">Quantity:</span>{" "}
                 {product.quantity}{" "}
-                {product.moq < product.quantity && (
+                {product.moq > product.quantity && (
                   <span className="text-orange-700 font-semibold">
                     - Not Available
                   </span>

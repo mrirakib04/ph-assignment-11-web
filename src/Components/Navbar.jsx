@@ -61,16 +61,18 @@ const Navbar = () => {
                     >
                       About
                     </NavLink>
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "border-green-600 text-green-700 border-2 py-2 px-4 rounded-lg"
-                          : "border-2 border-transparent py-2 px-4 rounded-lg"
-                      }
-                      to="/dashboard/home"
-                    >
-                      Dashboard
-                    </NavLink>
+                    {user && (
+                      <NavLink
+                        className={({ isActive }) =>
+                          isActive
+                            ? "border-green-600 text-green-700 border-2 py-2 px-4 rounded-lg"
+                            : "border-2 border-transparent py-2 px-4 rounded-lg"
+                        }
+                        to="/dashboard/home"
+                      >
+                        Dashboard
+                      </NavLink>
+                    )}
                   </ul>
                 </div>
               )}
@@ -118,16 +120,18 @@ const Navbar = () => {
               >
                 About
               </NavLink>
-              <NavLink
-                className={({ isActive }) =>
-                  isActive
-                    ? "py-1 bg-green-300 shadow-lg px-4 rounded-lg border-b-2 border-white"
-                    : "py-1 px-4 rounded-lg border-b-2 border-transparent hover:text-green-700 duration-300"
-                }
-                to="/dashboard/home"
-              >
-                Dashboard
-              </NavLink>
+              {user && (
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive
+                      ? "py-1 bg-green-300 shadow-lg px-4 rounded-lg border-b-2 border-white"
+                      : "py-1 px-4 rounded-lg border-b-2 border-transparent hover:text-green-700 duration-300"
+                  }
+                  to="/dashboard/home"
+                >
+                  Dashboard
+                </NavLink>
+              )}
             </ul>
           </div>
           {user ? (

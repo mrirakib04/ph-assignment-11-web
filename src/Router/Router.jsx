@@ -26,6 +26,12 @@ import CheckoutPayment from "../Layout/Main/Payment/CheckoutPayment";
 import PaymentSuccess from "../Layout/Main/Payment/PaymentSuccess";
 import PaymentFailed from "../Layout/Main/Payment/PaymentFailed";
 import ManagerApprovedOrders from "../Layout/Dashboard/Manager/ManagerApprovedOrders/ManagerApprovedOrders";
+import IsLogin from "./Security/IsLogin";
+import IsAdmin from "./Security/IsAdmin";
+import IsAdminManager from "./Security/IsAdminManager";
+import IsManager from "./Security/IsManager";
+import IsBuyer from "./Security/IsBuyer";
+import IsSuspended from "./Security/IsSuspended";
 
 const Router = () => {
   return (
@@ -45,23 +51,65 @@ const Router = () => {
               path="/product/:id"
               element={<ProductDetails></ProductDetails>}
             ></Route>
-            <Route path="/booking/:id" element={<Booking></Booking>}></Route>
+            {/* private */}
+            <Route
+              path="/booking/:id"
+              element={
+                <IsLogin>
+                  <IsBuyer>
+                    <Booking></Booking>
+                  </IsBuyer>
+                </IsLogin>
+              }
+            ></Route>
             <Route
               path="/payment"
-              element={<CheckoutPayment></CheckoutPayment>}
+              element={
+                <IsLogin>
+                  <IsBuyer>
+                    <CheckoutPayment></CheckoutPayment>
+                  </IsBuyer>
+                </IsLogin>
+              }
             ></Route>
             <Route
               path="/payment-success"
-              element={<PaymentSuccess></PaymentSuccess>}
+              element={
+                <IsLogin>
+                  <IsBuyer>
+                    <PaymentSuccess></PaymentSuccess>
+                  </IsBuyer>
+                </IsLogin>
+              }
             ></Route>
             <Route
               path="/payment-failed"
-              element={<PaymentFailed></PaymentFailed>}
+              element={
+                <IsLogin>
+                  <IsBuyer>
+                    <PaymentFailed></PaymentFailed>
+                  </IsBuyer>
+                </IsLogin>
+              }
             ></Route>
-            <Route path="/profile" element={<Profile></Profile>}></Route>
+            <Route
+              path="/profile"
+              element={
+                <IsLogin>
+                  <Profile></Profile>
+                </IsLogin>
+              }
+            ></Route>
             <Route path="/about" element={<About></About>}></Route>
           </Route>
-          <Route path="/dashboard" element={<Dashboard></Dashboard>}>
+          <Route
+            path="/dashboard"
+            element={
+              <IsLogin>
+                <Dashboard></Dashboard>
+              </IsLogin>
+            }
+          >
             <Route
               path="/dashboard"
               element={<Navigate to={"/dashboard/home"}></Navigate>}
@@ -73,45 +121,105 @@ const Router = () => {
             {/* Admin  */}
             <Route
               path="/dashboard/all-orders"
-              element={<AdminAllOrders></AdminAllOrders>}
+              element={
+                <IsAdmin>
+                  <IsSuspended>
+                    <AdminAllOrders></AdminAllOrders>
+                  </IsSuspended>
+                </IsAdmin>
+              }
             ></Route>
             <Route
               path="/dashboard/all-products"
-              element={<AdminAllProducts></AdminAllProducts>}
+              element={
+                <IsAdmin>
+                  <IsSuspended>
+                    <AdminAllProducts></AdminAllProducts>
+                  </IsSuspended>
+                </IsAdmin>
+              }
             ></Route>
             <Route
               path="/dashboard/manage-users"
-              element={<AdminManageUsers></AdminManageUsers>}
+              element={
+                <IsAdmin>
+                  <IsSuspended>
+                    <AdminManageUsers></AdminManageUsers>
+                  </IsSuspended>
+                </IsAdmin>
+              }
             ></Route>
             {/* Manager  */}
             <Route
               path="/dashboard/add-product"
-              element={<ManagerAddProduct></ManagerAddProduct>}
+              element={
+                <IsAdminManager>
+                  <IsSuspended>
+                    <ManagerAddProduct></ManagerAddProduct>
+                  </IsSuspended>
+                </IsAdminManager>
+              }
             ></Route>
             <Route
               path="/dashboard/manage-products"
-              element={<ManagerManageProducts></ManagerManageProducts>}
+              element={
+                <IsManager>
+                  <IsSuspended>
+                    <ManagerManageProducts></ManagerManageProducts>
+                  </IsSuspended>
+                </IsManager>
+              }
             ></Route>
             <Route
               path="/dashboard/pending-orders"
-              element={<ManagerPendingOrders></ManagerPendingOrders>}
+              element={
+                <IsManager>
+                  <IsSuspended>
+                    <ManagerPendingOrders></ManagerPendingOrders>
+                  </IsSuspended>
+                </IsManager>
+              }
             ></Route>
             <Route
               path="/dashboard/approved-orders"
-              element={<ManagerApprovedOrders></ManagerApprovedOrders>}
+              element={
+                <IsManager>
+                  <IsSuspended>
+                    <ManagerApprovedOrders></ManagerApprovedOrders>
+                  </IsSuspended>
+                </IsManager>
+              }
             ></Route>
             <Route
               path="/dashboard/update-products/:id"
-              element={<UpdateProduct></UpdateProduct>}
+              element={
+                <IsAdminManager>
+                  <IsSuspended>
+                    <UpdateProduct></UpdateProduct>
+                  </IsSuspended>
+                </IsAdminManager>
+              }
             ></Route>
             {/* Buyer  */}
             <Route
               path="/dashboard/my-orders"
-              element={<UserMyOrders></UserMyOrders>}
+              element={
+                <IsBuyer>
+                  <IsSuspended>
+                    <UserMyOrders></UserMyOrders>
+                  </IsSuspended>
+                </IsBuyer>
+              }
             ></Route>
             <Route
               path="/dashboard/track-order"
-              element={<UserTrackOrder></UserTrackOrder>}
+              element={
+                <IsBuyer>
+                  <IsSuspended>
+                    <UserTrackOrder></UserTrackOrder>
+                  </IsSuspended>
+                </IsBuyer>
+              }
             ></Route>
           </Route>
         </Route>

@@ -17,7 +17,7 @@ const Profile = () => {
 
   const AxiosPublic = useAxiosPublic();
 
-  const { data: userInfo, isLoading } = useQuery({
+  const { data: userInfo } = useQuery({
     queryKey: ["userInfo", user?.email],
     enabled: !!user?.email,
     retry: 3,
@@ -97,6 +97,11 @@ const Profile = () => {
             label={`Assigned to: ${userInfo?.managerFor}`}
             color="secondary"
           ></Chip>
+        )}
+        {userInfo?.suspendReason && (
+          <p className="font-medium text-red-700 text-center">
+            <span className="font-bold">Reason:</span> {userInfo.suspendReason}
+          </p>
         )}
       </div>
 
