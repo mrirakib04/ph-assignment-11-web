@@ -1,5 +1,6 @@
 import HomeHeader from "./HomeHeader";
 import HomeProducts from "./HomeProducts";
+import OurPartners from "./OurPartners";
 import WhyChooseUs from "./WhyChooseUs";
 
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
       <HomeHeader></HomeHeader>
       <HomeProducts></HomeProducts>
       <WhyChooseUs></WhyChooseUs>
+      <OurPartners></OurPartners>
     </div>
   );
 };
