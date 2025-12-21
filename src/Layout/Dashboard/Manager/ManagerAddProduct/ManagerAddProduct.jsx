@@ -26,8 +26,6 @@ const ManagerAddProduct = () => {
     },
   });
 
-  console.log(userData);
-
   const handleAddProduct = async (e) => {
     e.preventDefault();
     const form = e.target;

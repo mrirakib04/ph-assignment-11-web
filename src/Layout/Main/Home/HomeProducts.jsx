@@ -16,8 +16,6 @@ const HomeProducts = () => {
     retry: 2,
   });
 
-  console.log(data);
-
   return (
     <section className="max-w-[1200px] mx-auto px-5 py-16 w-full flex flex-col items-center gap-3">
       <div className="w-full">

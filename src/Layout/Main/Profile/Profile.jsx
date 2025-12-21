@@ -27,8 +27,6 @@ const Profile = () => {
     },
   });
 
-  console.log(userInfo);
-
   const updateName = async (e) => {
     e.preventDefault();
     const name = e.target.name.value;

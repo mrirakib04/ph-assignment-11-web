@@ -9,7 +9,7 @@ NextRun Tracker is a modern e-commerce–based SaaS application built with React
 NextRun Tracker focuses on:
 
 - Clean UI/UX
-- Role-based dashboards (User / Admin)
+- Role-based dashboards (Buyer / Manager / Admin)
 - Order lifecycle tracking
 - Secure payment visualization
 - Scalable SaaS-ready architecture
@@ -27,6 +27,23 @@ NextRun Tracker focuses on:
 ## Server Repository
 
 - [https://github.com/mrirakib04/ph-assignment-11-server](https://github.com/mrirakib04/ph-assignment-11-server)
+
+## Login Credentials
+
+### Admin
+
+- Email: `admin@mailinator.com`
+- Password: `ABC@123abc`
+
+### Manager
+
+- Email: `manager@mailinator.com`
+- Password: `ABC@123abc`
+
+### Buyer
+
+- Email: `buyer@mailinator.com`
+- Password: `ABC@123abc`
 
 ---
 
@@ -176,4 +193,12 @@ npm run dev
 
 ---
 
-## Author
+## Conclusion
+
+Thank you for checking out my repository. If you have any feedback or suggestions, feel free to reach out!
+
+---
+
+Developed by **Md Rakibul Islam Rakib**
+
+- Design **Own Idea**

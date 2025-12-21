@@ -83,9 +83,7 @@ const Register = () => {
           status: "pending",
         };
 
-        AxiosPublic.post("/users", toDB)
-          .then(() => console.log("user added"))
-          .catch((err) => console.log(err));
+        AxiosPublic.post("/users", toDB);
 
         navigate("/");
       })
@@ -123,9 +121,7 @@ const Register = () => {
             status: "pending",
           };
 
-          AxiosPublic.post("/users", newUser)
-            .then((res) => console.log("added new user", res))
-            .catch((err) => console.log(err));
+          AxiosPublic.post("/users", newUser);
         }
         navigate("/");
       })

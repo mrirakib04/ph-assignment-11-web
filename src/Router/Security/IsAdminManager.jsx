@@ -21,8 +21,6 @@ const IsAdminManager = ({ children }) => {
     },
   });
 
-  console.log(userData);
-
   if (isLoading) {
     return <Loader></Loader>;
   }

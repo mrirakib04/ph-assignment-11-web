@@ -38,7 +38,7 @@ const Login = () => {
     handleLoginEmailPassword(email, password)
       .then((result) => {
         const newUser = result.user;
-        console.log(newUser);
+
         setUser(newUser);
         setUserName(newUser.displayName);
         setUserImage(newUser.photoURL || "");
@@ -84,9 +84,7 @@ const Login = () => {
             status: "pending",
           };
 
-          AxiosPublic.post("/users", newUser)
-            .then((res) => console.log("added new user", res))
-            .catch((err) => console.log(err));
+          AxiosPublic.post("/users", newUser);
         }
         navigate("/");
       })
