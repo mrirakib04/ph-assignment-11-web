@@ -3,11 +3,16 @@ import "./App.css";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import MainContext from "./Context/MainContext";
+import "aos/dist/aos.css";
+import Aos from "aos";
 
 function App() {
   const { theme } = useContext(MainContext);
+  useEffect(() => {
+    Aos.init();
+  }, []);
 
   return (
     <div
