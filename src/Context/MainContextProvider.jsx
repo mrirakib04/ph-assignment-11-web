@@ -83,6 +83,22 @@ const MainContextProvider = ({ children }) => {
     };
   }, []);
 
+  // Theme Control
+  const [theme, setTheme] = useState(() => {
+    // Check localStorage for saved theme or default to light
+    return localStorage.getItem("theme") || "light";
+  });
+  const toggleTheme = () => {
+    setTheme((prev) => {
+      const newTheme = prev === "light" ? "dark" : "light";
+      localStorage.setItem("theme", newTheme);
+      return newTheme;
+    });
+  };
+  useEffect(() => {
+    document.body.className = theme === "dark" ? "dark" : "light";
+  }, [theme]);
+
   const contextkeys = {
     loading,
     setLoading,
@@ -97,6 +113,8 @@ const MainContextProvider = ({ children }) => {
     setUserName,
     userImage,
     setUserImage,
+    theme,
+    toggleTheme,
   };
 
   return (
