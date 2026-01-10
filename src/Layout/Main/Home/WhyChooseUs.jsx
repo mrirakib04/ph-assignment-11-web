@@ -78,7 +78,7 @@ const WhyChooseUs = () => {
 
   return (
     <section
-      className={`w-full py-10 transition-colors duration-500 ${
+      className={`w-full py-16 transition-colors duration-500 ${
         theme === "dark"
           ? "bg-slate-950 text-white"
           : "bg-linear-to-br from-teal-50 via-white to-white text-gray-900"
@@ -86,7 +86,7 @@ const WhyChooseUs = () => {
     >
       <div className="max-w-7xl mx-auto px-5">
         {/* Title Section */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-8">
           <h2
             className={`md:text-4xl sm:text-3xl text-2xl font-black ${
               theme === "dark" ? "text-white" : "text-gray-900"
@@ -108,6 +108,7 @@ const WhyChooseUs = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((item, index) => (
             <div
+              data-aos="zoom-in"
               key={index}
               className={`p-8 rounded-2xl border-2 transition-all duration-300 hover:-translate-y-2 shadow-xl ${
                 item.borderColor
