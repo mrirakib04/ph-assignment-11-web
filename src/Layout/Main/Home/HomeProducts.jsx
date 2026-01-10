@@ -21,7 +21,7 @@ const HomeProducts = () => {
 
   return (
     <section
-      className={`w-full py-16 transition-colors duration-300 ${
+      className={`w-full py-10 transition-colors duration-300 ${
         theme === "dark" ? "bg-slate-900" : "bg-gray-50"
       }`}
     >
@@ -160,7 +160,9 @@ const HomeProducts = () => {
 
         <Link
           to={"/products"}
-          className="mt-12 px-8 py-3 rounded-xl font-bold bg-slate-900 dark:bg-sky-600 text-white hover:scale-105 transition-all duration-300 shadow-lg"
+          className={`mt-12 px-8 py-3 rounded-xl font-bold ${
+            theme === "dark" ? "bg-sky-600" : "bg-slate-900"
+          } text-white hover:scale-105 transition-all duration-300 shadow-lg`}
         >
           View All Products
         </Link>
