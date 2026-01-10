@@ -32,6 +32,11 @@ import IsAdminManager from "./Security/IsAdminManager";
 import IsManager from "./Security/IsManager";
 import IsBuyer from "./Security/IsBuyer";
 import IsSuspended from "./Security/IsSuspended";
+import Career from "../Layout/Main/Career/Career";
+import Contact from "../Layout/Main/Contact/Contact";
+import Policy from "../Layout/Main/Policy/Policy";
+import Mission from "../Layout/Main/Mission/Mission";
+import Terms from "../Layout/Main/Terms/Terms";
 
 const Router = () => {
   return (
@@ -101,6 +106,11 @@ const Router = () => {
               }
             ></Route>
             <Route path="/about" element={<About></About>}></Route>
+            <Route path="/career" element={<Career></Career>}></Route>
+            <Route path="/contact" element={<Contact></Contact>}></Route>
+            <Route path="/policy" element={<Policy></Policy>}></Route>
+            <Route path="/mission" element={<Mission></Mission>}></Route>
+            <Route path="/terms" element={<Terms></Terms>}></Route>
           </Route>
           <Route
             path="/dashboard"
