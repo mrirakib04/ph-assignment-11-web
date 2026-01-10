@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import {
   MdOutlineEngineering,
   MdOutlineInventory2,
@@ -6,15 +6,9 @@ import {
   MdOutlineAnalytics,
 } from "react-icons/md";
 import MainContext from "../../../Context/MainContext";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 const FeaturedCategories = () => {
   const { theme } = useContext(MainContext);
-
-  useEffect(() => {
-    AOS.init({ duration: 1000 });
-  }, []);
 
   const categories = [
     {

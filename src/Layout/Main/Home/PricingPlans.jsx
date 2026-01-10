@@ -1,19 +1,13 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import {
   MdEmail,
   MdAdminPanelSettings,
   MdShoppingCartCheckout,
 } from "react-icons/md";
 import MainContext from "../../../Context/MainContext";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 const PricingPlans = () => {
   const { theme } = useContext(MainContext);
-
-  useEffect(() => {
-    AOS.init({ duration: 1000 });
-  }, []);
 
   return (
     <section

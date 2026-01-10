@@ -1,19 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
 import { FaUsers, FaBox, FaShoppingCart, FaDollarSign } from "react-icons/fa";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import Loader from "../../../Components/Loader";
 import MainContext from "../../../Context/MainContext";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 const OrderStatistics = () => {
   const AxiosPublic = useAxiosPublic();
   const { theme } = useContext(MainContext);
-
-  useEffect(() => {
-    AOS.init({ duration: 1000 });
-  }, []);
 
   const { data, isLoading } = useQuery({
     queryKey: ["orderStatistics"],

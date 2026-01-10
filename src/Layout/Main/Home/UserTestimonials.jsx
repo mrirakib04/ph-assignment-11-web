@@ -1,15 +1,9 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { FaQuoteLeft, FaStar } from "react-icons/fa";
 import MainContext from "../../../Context/MainContext";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 const UserTestimonials = () => {
   const { theme } = useContext(MainContext);
-
-  useEffect(() => {
-    AOS.init({ duration: 1000 });
-  }, []);
 
   const testimonials = [
     {

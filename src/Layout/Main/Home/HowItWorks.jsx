@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import {
   MdLogin,
   MdSearch,
@@ -6,15 +6,9 @@ import {
   MdTrackChanges,
 } from "react-icons/md";
 import MainContext from "../../../Context/MainContext";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
 const HowItWorks = () => {
   const { theme } = useContext(MainContext);
-
-  useEffect(() => {
-    AOS.init({ duration: 1000 });
-  }, []);
 
   const steps = [
     {
