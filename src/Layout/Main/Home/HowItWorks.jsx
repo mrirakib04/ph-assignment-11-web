@@ -55,7 +55,7 @@ const HowItWorks = () => {
     >
       <div className="max-w-7xl mx-auto px-5">
         {/* Title Area - mb-8 spacing */}
-        <div className="text-center mb-8" data-aos="fade-up">
+        <div className="text-center mb-8">
           <h2
             className={`text-2xl sm:text-3xl md:text-4xl font-black mb-2 ${
               theme === "dark" ? "text-white" : "text-gray-900"
