@@ -7,12 +7,17 @@ import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import Loader from "../../../Components/Loader";
 import { toast } from "react-toastify";
 import { HeadProvider, Title } from "react-head";
+import {
+  MdOutlineShoppingCartCheckout,
+  MdOutlinePayment,
+  MdLocalShipping,
+} from "react-icons/md";
 
 const Booking = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const AxiosPublic = useAxiosPublic();
-  const { user } = useContext(MainContext);
+  const { user, theme } = useContext(MainContext);
 
   const [quantity, setQuantity] = useState(0);
 
@@ -29,14 +34,19 @@ const Booking = () => {
 
   if (isLoading) return <Loader />;
   if (!product?._id)
-    return <Typography color="error">Product not found</Typography>;
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <Typography color="error" variant="h5">
+          Product not found
+        </Typography>
+      </div>
+    );
 
   const totalPrice = quantity > 0 ? quantity * product.price : 0;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
-
     const orderQuantity = Number(form.quantity.value);
 
     if (orderQuantity < product.moq) {
@@ -63,17 +73,11 @@ const Booking = () => {
       notes: form.notes.value,
     };
 
-    // Payment required → go to payment page
     if (product.paymentOption !== "Cash on Delivery") {
-      navigate("/payment", {
-        state: {
-          booking: bookingData,
-        },
-      });
+      navigate("/payment", { state: { booking: bookingData } });
       return;
     }
 
-    // COD → save booking directly
     try {
       await AxiosPublic.post("/orders", bookingData);
       toast.success("Order placed successfully");
@@ -83,92 +87,192 @@ const Booking = () => {
     }
   };
 
+  // Custom Input Styling for Dark Mode
+  const inputStyle = {
+    "& .MuiOutlinedInput-root": {
+      color: theme === "dark" ? "white" : "inherit",
+      "& fieldset": { borderColor: theme === "dark" ? "#334155" : "#e2e8f0" },
+      "&:hover fieldset": { borderColor: "#0ea5e9" },
+    },
+    "& .MuiInputLabel-root": {
+      color: theme === "dark" ? "#94a3b8" : "#64748b",
+    },
+    mb: 2,
+  };
+
   return (
-    <Box className="px-5 py-10 flex justify-center">
+    <section
+      className={`w-full py-16 transition-colors duration-500 ${
+        theme === "dark"
+          ? "bg-slate-950 text-white"
+          : "bg-gray-50 text-gray-900"
+      }`}
+    >
       <HeadProvider>
-        <Title>Booking || NextRun Tracker</Title>
+        <Title>Checkout || NextRun Tracker</Title>
       </HeadProvider>
-      <Box className="max-w-3xl w-full bg-white p-6 rounded-lg shadow border">
-        <Typography variant="h5" fontWeight="bold" mb={2}>
-          Booking / Order Form
-        </Typography>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-          <TextField
-            label="Email"
-            value={user?.email}
-            InputProps={{ readOnly: true }}
-            fullWidth
-          />
+      <div className="max-w-4xl mx-auto px-5">
+        <div
+          className={`sm:p-8 p-4 md:p-12 rounded-3xl border transition-all duration-300 ${
+            theme === "dark"
+              ? "bg-slate-900 border-slate-800 shadow-2xl shadow-black/50"
+              : "bg-white border-gray-100 shadow-xl shadow-gray-200"
+          }`}
+          data-aos="zoom-in"
+        >
+          {/* Header */}
+          <div className="flex items-center gap-4 mb-8">
+            <div className="p-4 bg-sky-500/10 rounded-2xl text-sky-500 md:text-3xl sm:text-2xl text-xl">
+              <MdOutlineShoppingCartCheckout />
+            </div>
+            <div>
+              <h1 className="sm:text-2xl text-xl md:text-3xl font-black uppercase">
+                Finalize Your Order
+              </h1>
+              <p
+                className={`text-sm font-bold opacity-60 ${
+                  theme === "dark" ? "text-slate-400" : "text-gray-500"
+                }`}
+              >
+                Please review and provide your shipping details
+              </p>
+            </div>
+          </div>
 
-          <TextField
-            label="Product"
-            value={product.title}
-            InputProps={{ readOnly: true }}
-            fullWidth
-          />
+          <form onSubmit={handleSubmit}>
+            {/* Read Only Info Section */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8 sm:p-6 p-4 rounded-2xl border-2 border-dashed border-sky-500/20 bg-sky-500/5">
+              <TextField
+                label="Product Title"
+                value={product.title}
+                InputProps={{ readOnly: true }}
+                fullWidth
+                sx={inputStyle}
+              />
+              <TextField
+                label="Price (Per Unit)"
+                value={`$${product.price}`}
+                InputProps={{ readOnly: true }}
+                fullWidth
+                sx={inputStyle}
+              />
+              <TextField
+                label="Buyer Account"
+                value={user?.email}
+                InputProps={{ readOnly: true }}
+                fullWidth
+                sx={inputStyle}
+              />
+              <TextField
+                label="Total Calculation"
+                value={totalPrice ? `$${totalPrice}` : "$0.00"}
+                InputProps={{ readOnly: true }}
+                fullWidth
+                sx={{
+                  ...inputStyle,
+                  "& .MuiOutlinedInput-root": {
+                    ...inputStyle["& .MuiOutlinedInput-root"],
+                    backgroundColor: "rgba(14, 165, 233, 0.1)",
+                  },
+                  "& .MuiInputBase-input": {
+                    fontWeight: "black",
+                    color: "#0ea5e9",
+                  },
+                }}
+              />
+            </div>
 
-          <TextField
-            label="Price (per unit)"
-            value={`$${product.price}`}
-            InputProps={{ readOnly: true }}
-            fullWidth
-          />
+            <Typography
+              variant="h6"
+              className="mb-4! flex items-center gap-2 font-black uppercase tracking-wider text-sm! opacity-70"
+            >
+              <MdLocalShipping /> Shipping Information
+            </Typography>
 
-          <Divider />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <TextField
+                label="First Name"
+                name="firstName"
+                required
+                fullWidth
+                sx={inputStyle}
+              />
+              <TextField
+                label="Last Name"
+                name="lastName"
+                required
+                fullWidth
+                sx={inputStyle}
+              />
+            </div>
 
-          <TextField label="First Name" name="firstName" required fullWidth />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <TextField
+                label="Order Quantity"
+                name="quantity"
+                type="number"
+                required
+                onChange={(e) => setQuantity(Number(e.target.value))}
+                helperText={`MOQ: ${product.moq} | Available: ${product.quantity}`}
+                fullWidth
+                sx={inputStyle}
+              />
+              <TextField
+                label="Contact Number"
+                name="contact"
+                required
+                fullWidth
+                sx={inputStyle}
+              />
+            </div>
 
-          <TextField label="Last Name" name="lastName" required fullWidth />
+            <TextField
+              label="Delivery Address"
+              name="address"
+              required
+              multiline
+              rows={3}
+              fullWidth
+              sx={inputStyle}
+              placeholder="House #, Road #, City, Country"
+            />
 
-          <TextField
-            label="Order Quantity"
-            name="quantity"
-            type="number"
-            required
-            inputProps={{
-              min: product.moq,
-              max: product.quantity,
-            }}
-            onChange={(e) => setQuantity(Number(e.target.value))}
-            helperText={`Min: ${product.moq}, Max: ${product.quantity}`}
-            fullWidth
-          />
+            <TextField
+              label="Special Notes for Manager"
+              name="notes"
+              multiline
+              rows={2}
+              fullWidth
+              sx={inputStyle}
+              placeholder="Any specific instructions for your order..."
+            />
 
-          <TextField
-            label="Total Price"
-            value={totalPrice ? `$${totalPrice}` : ""}
-            InputProps={{ readOnly: true }}
-            fullWidth
-          />
+            <div className="mt-10">
+              <button
+                type="submit"
+                className="w-full sm:py-5 py-3 bg-sky-500 hover:bg-sky-600 text-white font-black sm:text-xl text-base rounded-2xl shadow-xl shadow-sky-500/30 transition-all active:scale-95 flex items-center justify-center gap-3 uppercase tracking-tighter"
+              >
+                {product.paymentOption === "PayFirst" ? (
+                  <>
+                    Proceed to Payment <MdOutlinePayment />
+                  </>
+                ) : (
+                  <>
+                    Confirm & Place Order <MdLocalShipping />
+                  </>
+                )}
+              </button>
 
-          <TextField label="Contact Number" name="contact" required fullWidth />
-
-          <TextField
-            label="Delivery Address"
-            name="address"
-            required
-            multiline
-            rows={2}
-            fullWidth
-          />
-
-          <TextField
-            label="Additional Notes"
-            name="notes"
-            multiline
-            rows={2}
-            fullWidth
-          />
-
-          <Button type="submit" variant="contained" size="large" sx={{ mt: 2 }}>
-            {product.paymentOption === "PayFirst"
-              ? "Confirm & Continue"
-              : "Place Order"}
-          </Button>
-        </form>
-      </Box>
-    </Box>
+              <p className="mt-4 text-center text-xs font-bold uppercase tracking-widest opacity-50">
+                Payment Method:{" "}
+                <span className="text-sky-500">{product.paymentOption}</span>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
   );
 };
 
