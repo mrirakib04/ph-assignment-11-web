@@ -34,9 +34,9 @@ const Navbar = () => {
         theme === "dark"
           ? "bg-slate-900/80 text-white border-slate-800 shadow-sky-900/20"
           : "bg-white/80 text-black border-gray-200"
-      } backdrop-blur-md shadow-md`}
+      } backdrop-blur-md shadow-md px-4`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center h-16">
           {/* Left Section: Logo & Mobile Toggle */}
           <div className="flex items-center gap-4">

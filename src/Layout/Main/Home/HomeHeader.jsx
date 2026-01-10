@@ -31,7 +31,7 @@ const HomeHeader = () => {
           : "bg-linear-to-r from-sky-300 via-white to-green-300 text-gray-900"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-5 flex flex-col lg:flex-row items-center gap-12">
+      <div className="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row items-center gap-12">
         {/* LEFT SECTION */}
         <div className="w-full lg:w-6/12 text-center lg:text-left">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">

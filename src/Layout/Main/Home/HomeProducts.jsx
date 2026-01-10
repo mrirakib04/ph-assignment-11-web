@@ -2,10 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import Loader from "../../../Components/Loader";
 import { Link, useNavigate } from "react-router";
+import { useContext } from "react";
+import MainContext from "../../../Context/MainContext";
 
 const HomeProducts = () => {
   const AxiosPublic = useAxiosPublic();
   const navigate = useNavigate();
+  const { theme } = useContext(MainContext);
 
   const { data, isLoading } = useQuery({
     queryKey: ["homeProducts"],
@@ -17,82 +20,151 @@ const HomeProducts = () => {
   });
 
   return (
-    <section className="max-w-[1200px] mx-auto px-5 py-16 w-full flex flex-col items-center gap-3">
-      <div className="w-full">
-        {/* Title */}
-        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center">
-          Latest Products
-        </h2>
-        {/* Subtitle */}
-        <p className="mt-3 text-center text-gray-600 max-w-2xl mx-auto">
-          Explore our latest featured products selected specially for the home
-          page.
-        </p>
-      </div>
-
-      {/* Grid */}
-      {isLoading ? (
-        <Loader></Loader>
-      ) : data?.products.length > 0 ? (
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-          {data?.products?.map((product) => (
-            <div
-              key={product._id}
-              className="border rounded-xl p-4 shadow-md hover:shadow-lg transition border-teal-400 shadow-teal-400"
-            >
-              <img
-                src={product.images[0]}
-                alt={product.title}
-                className="w-full h-48 object-cover rounded-lg shadow-md"
-              />
-
-              <h3 className="mt-3 font-semibold text-lg line-clamp-1">
-                {product.title}
-              </h3>
-
-              <p className="text-sm text-gray-600 line-clamp-2 mt-1">
-                {product.description}
-              </p>
-              <p className="text-sm text-gray-600 line-clamp-2 mt-1">
-                <span className="font-medium">Quantity:</span>{" "}
-                {product.quantity}{" "}
-                {product.moq > product.quantity && (
-                  <span className="text-orange-700 font-semibold">
-                    - Not Available
-                  </span>
-                )}
-              </p>
-              <p className="text-sm text-gray-600 line-clamp-2 mt-1">
-                <span className="font-medium">Minimum Order Quantity:</span>{" "}
-                {product.moq}
-              </p>
-              <div className="mt-3 flex justify-between items-center">
-                <span className="font-bold text-teal-600">
-                  $ {product.price}
-                </span>
-
-                <button
-                  onClick={() => navigate(`/product/${product._id}`)}
-                  className="px-5 cursor-pointer font-medium py-1.5 rounded-md bg-linear-to-br from-teal-700 to-teal-500 hover:to-green-700 text-white transition"
-                >
-                  View
-                </button>
-              </div>
-            </div>
-          ))}
+    <section
+      className={`w-full py-16 transition-colors duration-300 ${
+        theme === "dark" ? "bg-slate-900" : "bg-gray-50"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-5 flex flex-col items-center gap-3">
+        <div className="w-full">
+          {/* Title */}
+          <h2
+            className={`text-2xl sm:text-3xl md:text-4xl font-extrabold text-center ${
+              theme === "dark" ? "text-white" : "text-gray-900"
+            }`}
+          >
+            Latest <span className="text-sky-500">Products</span>
+          </h2>
+          {/* Subtitle */}
+          <p
+            className={`mt-3 text-center max-w-2xl mx-auto ${
+              theme === "dark" ? "text-slate-400" : "text-gray-600"
+            }`}
+          >
+            Explore our latest featured products selected specially for the home
+            page tracking and management.
+          </p>
         </div>
-      ) : (
-        <p className="text-orange-600 text-center font-medium py-10">
-          Not enough products to show. Quantity is less than 3!
-        </p>
-      )}
 
-      <Link
-        to={"/products"}
-        className="px-4 py-2 rounded-md bg-linear-to-br from-black to-gray-900 hover:to-gray-700 hover:scale-[1.02] transition duration-300 hover:shadow-md text-white mx-auto w-fit mt-10 content-center"
-      >
-        View All Products
-      </Link>
+        {/* Grid System - 4 columns on large screens */}
+        {isLoading ? (
+          <Loader />
+        ) : data?.products?.length > 0 ? (
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
+            {data?.products?.map((product) => (
+              <div
+                data-aos="zoom-in"
+                key={product._id}
+                className={`group border rounded-2xl p-4 transition-all duration-300 hover:-translate-y-2 ${
+                  theme === "dark"
+                    ? "bg-slate-800 border-slate-700 shadow-lg shadow-black/20 hover:border-sky-500/50"
+                    : "bg-white border-gray-200 shadow-md hover:shadow-xl hover:border-teal-400"
+                }`}
+              >
+                <div className="relative overflow-hidden rounded-lg">
+                  <img
+                    src={product.images[0]}
+                    alt={product.title}
+                    className="w-full h-40 object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                  {product.moq > product.quantity && (
+                    <div className="absolute top-2 right-2 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-full uppercase">
+                      Out of Stock
+                    </div>
+                  )}
+                </div>
+
+                <h3
+                  className={`mt-4 font-bold text-base line-clamp-1 ${
+                    theme === "dark" ? "text-slate-100" : "text-gray-800"
+                  }`}
+                >
+                  {product.title}
+                </h3>
+
+                <p
+                  className={`text-xs line-clamp-2 mt-2 h-8 ${
+                    theme === "dark" ? "text-slate-400" : "text-gray-500"
+                  }`}
+                >
+                  {product.description}
+                </p>
+
+                <div
+                  className={`mt-3 pt-3 border-t text-[13px] ${
+                    theme === "dark" ? "border-slate-700" : "border-gray-100"
+                  }`}
+                >
+                  <div className="flex justify-between">
+                    <span
+                      className={
+                        theme === "dark" ? "text-slate-400" : "text-gray-500"
+                      }
+                    >
+                      Stock:
+                    </span>
+                    <span
+                      className={`font-semibold ${
+                        product.quantity < product.moq
+                          ? "text-red-400"
+                          : "text-green-500"
+                      }`}
+                    >
+                      {product.quantity}
+                    </span>
+                  </div>
+                  <div className="flex justify-between mt-1">
+                    <span
+                      className={
+                        theme === "dark" ? "text-slate-400" : "text-gray-500"
+                      }
+                    >
+                      MOQ:
+                    </span>
+                    <span
+                      className={
+                        theme === "dark" ? "text-slate-200" : "text-gray-700"
+                      }
+                    >
+                      {product.moq}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="mt-4 flex justify-between items-center">
+                  <span className="font-extrabold text-lg text-sky-500">
+                    ${product.price}
+                  </span>
+
+                  <button
+                    onClick={() => navigate(`/product/${product._id}`)}
+                    className="px-4 py-1.5 cursor-pointer text-sm font-bold rounded-lg bg-sky-500 hover:bg-sky-600 text-white transition-colors shadow-md shadow-sky-500/20"
+                  >
+                    Details
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div
+            className={`mt-10 p-10 rounded-xl border-2 border-dashed text-center w-full ${
+              theme === "dark"
+                ? "border-slate-800 text-slate-500"
+                : "border-gray-200 text-gray-400"
+            }`}
+          >
+            <p className="text-lg font-medium">Not enough products to show.</p>
+          </div>
+        )}
+
+        <Link
+          to={"/products"}
+          className="mt-12 px-8 py-3 rounded-xl font-bold bg-slate-900 dark:bg-sky-600 text-white hover:scale-105 transition-all duration-300 shadow-lg"
+        >
+          View All Products
+        </Link>
+      </div>
     </section>
   );
 };
