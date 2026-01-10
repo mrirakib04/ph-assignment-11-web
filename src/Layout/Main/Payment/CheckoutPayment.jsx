@@ -11,6 +11,8 @@ import { Box, Typography, Button, Divider, Paper } from "@mui/material";
 import { toast } from "react-toastify";
 import useAxiosPublic from "../../../Hooks/useAxiosPublic";
 import MainContext from "../../../Context/MainContext";
+import { MdLock, MdCreditCard, MdOutlineSecurity } from "react-icons/md";
+import { HeadProvider, Title } from "react-head";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
 
@@ -19,7 +21,7 @@ const PaymentForm = ({ booking }) => {
   const elements = useElements();
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
-  const { user } = useContext(MainContext);
+  const { user, theme } = useContext(MainContext);
 
   const [loading, setLoading] = useState(false);
 
@@ -78,62 +80,169 @@ const PaymentForm = ({ booking }) => {
     }
   };
 
+  // Stripe Element Styling based on Theme
+  const cardElementOptions = {
+    style: {
+      base: {
+        fontSize: "16px",
+        color: theme === "dark" ? "#fff" : "#1e293b",
+        "::placeholder": {
+          color: theme === "dark" ? "#94a3b8" : "#64748b",
+        },
+      },
+      invalid: {
+        color: "#ef4444",
+      },
+    },
+  };
+
   return (
-    <Paper elevation={3} sx={{ p: 4 }}>
-      <Typography variant="h5" fontWeight="bold" mb={2}>
-        Payment Details
-      </Typography>
+    <div
+      className={`p-3 sm:p-6 md:p-8 rounded-3xl border transition-all duration-300 ${
+        theme === "dark"
+          ? "bg-slate-900 border-slate-800 shadow-2xl"
+          : "bg-white border-gray-100 shadow-xl"
+      }`}
+    >
+      <div className="flex items-center gap-3 mb-6">
+        <div className="p-3 bg-sky-500/10 rounded-xl text-sky-500 text-2xl">
+          <MdCreditCard />
+        </div>
+        <h2 className="sm:text-xl text-lg sm:font-black font-bold uppercase tracking-tight">
+          Payment Details
+        </h2>
+      </div>
 
-      <Typography>
-        Product: <strong>{booking.productTitle}</strong>
-      </Typography>
+      <div
+        className={`mb-6 sm:p-5 p-4 rounded-2xl border border-dashed ${
+          theme === "dark"
+            ? "bg-slate-950/50 border-slate-800"
+            : "bg-gray-50 border-gray-200"
+        }`}
+      >
+        <div className="flex justify-between mb-2">
+          <span className="opacity-60 text-sm font-bold uppercase">
+            Product:
+          </span>
+          <span className="font-bold text-sky-500 text-sm text-right">
+            {booking.productTitle}
+          </span>
+        </div>
+        <div className="flex justify-between mb-2">
+          <span className="opacity-60 text-sm font-bold uppercase">
+            Quantity:
+          </span>
+          <span className="font-bold text-sm">
+            {booking.orderQuantity} Units
+          </span>
+        </div>
+        <Divider
+          className={`my-3 ${
+            theme === "dark" ? "bg-slate-800" : "bg-gray-200"
+          }`}
+        />
+        <div className="flex justify-between items-center">
+          <span className="opacity-60 text-sm font-bold uppercase">
+            Total Amount:
+          </span>
+          <span className="md:text-2xl sm:text-xl text-lg font-black text-sky-500">
+            ${booking.totalPrice}
+          </span>
+        </div>
+      </div>
 
-      <Typography>Quantity: {booking.orderQuantity}</Typography>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
+          <label className="block text-xs font-black uppercase tracking-widest opacity-50 mb-2 ml-1">
+            Card Information
+          </label>
+          <div
+            className={`p-4 rounded-xl border transition-all ${
+              theme === "dark"
+                ? "bg-slate-950 border-slate-800 focus-within:border-sky-500"
+                : "bg-white border-gray-200 focus-within:border-sky-500"
+            }`}
+          >
+            <CardElement options={cardElementOptions} />
+          </div>
+        </div>
 
-      <Typography mb={2}>
-        Total Amount: <strong>${booking.totalPrice}</strong>
-      </Typography>
+        <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-tighter opacity-50 px-1">
+          <MdOutlineSecurity className="text-lg text-emerald-500" />
+          Secure 256-bit encrypted payment via Stripe
+        </div>
 
-      <Divider sx={{ my: 2 }} />
-
-      <form onSubmit={handleSubmit}>
-        <Box sx={{ border: "1px solid #ccc", p: 2, borderRadius: 1, mb: 2 }}>
-          <CardElement />
-        </Box>
-
-        <Button
+        <button
           type="submit"
-          variant="contained"
-          fullWidth
           disabled={!stripe || loading}
+          className={`w-full py-4 rounded-2xl font-black text-lg shadow-xl transition-all active:scale-95 flex items-center justify-center gap-2 uppercase tracking-tighter ${
+            loading || !stripe
+              ? "bg-slate-800 text-slate-500 cursor-not-allowed"
+              : "bg-sky-500 hover:bg-sky-600 text-white shadow-sky-500/20"
+          }`}
         >
-          {loading ? "Processing..." : "Pay Now"}
-        </Button>
+          {loading ? (
+            <span className="flex items-center gap-2">Processing...</span>
+          ) : (
+            <>
+              Pay Now <MdLock />
+            </>
+          )}
+        </button>
       </form>
-    </Paper>
+    </div>
   );
 };
 
 const CheckoutPayment = () => {
   const location = useLocation();
+  const { theme } = useContext(MainContext);
   const booking = location.state?.booking;
 
   if (!booking) {
     return (
-      <Typography color="error" align="center" mt={10}>
-        Invalid payment request
-      </Typography>
+      <div className="h-screen flex items-center justify-center flex-col gap-4">
+        <Typography color="error" variant="h5" fontWeight="bold">
+          Invalid Request
+        </Typography>
+        <Button variant="outlined" onClick={() => window.history.back()}>
+          Go Back
+        </Button>
+      </div>
     );
   }
 
   return (
-    <Box className="flex justify-center py-10 px-4">
-      <Box maxWidth={500} width="100%">
-        <Elements stripe={stripePromise}>
-          <PaymentForm booking={booking} />
-        </Elements>
-      </Box>
-    </Box>
+    <section
+      className={`min-h-[80vh] py-20 transition-colors duration-500 ${
+        theme === "dark"
+          ? "bg-slate-950 text-white"
+          : "bg-gray-50 text-gray-900"
+      }`}
+    >
+      <HeadProvider>
+        <Title>Secure Payment || NextRun Tracker</Title>
+      </HeadProvider>
+
+      <div className="max-w-7xl mx-auto px-5 flex justify-center">
+        <div className="w-full max-w-lg" data-aos="zoom-in">
+          <div className="text-center mb-10">
+            <h1 className="md:text-3xl text-2xl font-black uppercase tracking-tighter mb-2">
+              Secure <span className="text-sky-500">Checkout</span>
+            </h1>
+            <div className="w-16 h-1 bg-sky-500 mx-auto rounded-full"></div>
+          </div>
+
+          <Elements stripe={stripePromise}>
+            <PaymentForm booking={booking} />
+          </Elements>
+
+          <p className="mt-8 text-center text-xs font-bold opacity-40 uppercase tracking-[3px]">
+            Powered by NextRun Ecosystem
+          </p>
+        </div>
+      </div>
+    </section>
   );
 };
 
