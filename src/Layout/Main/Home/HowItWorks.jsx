@@ -80,7 +80,7 @@ const HowItWorks = () => {
               key={index}
               data-aos="zoom-in"
               data-aos-delay={index * 150}
-              className={`relative p-8 rounded-2xl flex flex-col items-center text-center transition-all duration-300 border group hover:-translate-y-2 ${
+              className={`relative p-8 rounded-2xl flex flex-col items-center overflow-hidden text-center transition-all duration-300 border group hover:-translate-y-2 ${
                 theme === "dark"
                   ? "bg-slate-900 border-slate-800 shadow-xl shadow-black/40"
                   : "bg-white border-gray-100 shadow-lg shadow-gray-200"
