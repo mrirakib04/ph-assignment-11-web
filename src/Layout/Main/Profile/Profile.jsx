@@ -186,9 +186,12 @@ const Profile = () => {
           </div>
 
           {/* Right Side: Update Panel */}
-          <div className="lg:col-span-7 w-full space-y-6" data-aos="fade-left">
+          <div
+            className="lg:col-span-7 w-full space-y-6 flex h-full"
+            data-aos="fade-left"
+          >
             <div
-              className={`sm:p-8 p-4 md:p-10 rounded-[2.5rem] border transition-all duration-300 ${
+              className={`sm:p-8 p-4 md:p-10 rounded-[2.5rem] border transition-all duration-300 w-full ${
                 theme === "dark"
                   ? "bg-slate-900 border-slate-800 shadow-2xl"
                   : "bg-white border-gray-100 shadow-xl"
