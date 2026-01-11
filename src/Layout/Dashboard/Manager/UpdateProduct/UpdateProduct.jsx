@@ -8,9 +8,7 @@ import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
 import Loader from "../../../../Components/Loader";
 import {
   MdEditNote,
-  MdOutlineDescription,
   MdAttachMoney,
-  MdCategory,
   MdProductionQuantityLimits,
   MdCloudUpload,
   MdVideoLibrary,

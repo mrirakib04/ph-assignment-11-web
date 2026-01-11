@@ -9,14 +9,7 @@ import {
 } from "@mui/material";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import {
-  MdClose,
-  MdLocalShipping,
-  MdPerson,
-  MdInventory,
-  MdCalendarToday,
-  MdAddLocationAlt,
-} from "react-icons/md";
+import { MdClose, MdLocalShipping, MdPerson } from "react-icons/md";
 import MainContext from "../../../../Context/MainContext";
 import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
 import Loader from "../../../../Components/Loader";

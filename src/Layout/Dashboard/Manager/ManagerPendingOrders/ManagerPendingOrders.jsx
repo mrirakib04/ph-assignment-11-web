@@ -14,7 +14,6 @@ import {
   MdHourglassEmpty,
   MdCheckCircle,
   MdCancel,
-  MdVisibility,
   MdClose,
   MdOutlineEmail,
   MdPayment,
@@ -111,7 +110,7 @@ const ManagerPendingOrders = () => {
       </HeadProvider>
 
       <div
-        className={`max-w-6xl mx-auto p-6 md:p-10 rounded-[2.5rem] border backdrop-blur-xl transition-all duration-500 shadow-2xl ${
+        className={`max-w-6xl mx-auto p-3 sm:p-6 md:p-10 rounded-2xl sm:rounded-[2.5rem] border backdrop-blur-xl transition-all duration-500 shadow-2xl ${
           theme === "dark"
             ? "bg-slate-900/80 border-slate-800 shadow-black/50"
             : "bg-white border-slate-200 shadow-slate-200"
