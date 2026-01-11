@@ -11,7 +11,6 @@ import {
   MdAttachMoney,
   MdCategory,
   MdShoppingCart,
-  MdOutlineDescription,
   MdMailOutline,
 } from "react-icons/md";
 
@@ -64,10 +63,41 @@ const ManagerAddProduct = () => {
     (userData?.role === "Manager" && userData?.managerFor) ||
     "";
 
-  // Common Class for Inputs
-  const inputClass = `w-full rounded-2xl transition-all duration-300 ${
+  // MUI Custom styles based on theme
+  const muiFieldStyle = {
+    "& .MuiOutlinedInput-root": {
+      borderRadius: "16px !important",
+      color: theme === "dark" ? "#f8fafc !important" : "inherit !important",
+      "& fieldset": {
+        borderColor:
+          theme === "dark"
+            ? "rgba(255, 255, 255, 0.2) !important"
+            : "rgba(0, 0, 0, 0.2) !important",
+      },
+      "&:hover fieldset": {
+        borderColor:
+          theme === "dark"
+            ? "rgba(255, 255, 255, 0.4) !important"
+            : "rgba(0, 0, 0, 0.3) !important",
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "#0ea5e9 !important", // sky-500
+      },
+    },
+    "& .MuiInputLabel-root": {
+      color:
+        theme === "dark"
+          ? "rgba(255, 255, 255, 0.5) !important"
+          : "rgba(0, 0, 0, 0.6) !important",
+    },
+    "& .MuiInputLabel-root.Mui-focused": {
+      color: "#0ea5e9 !important",
+    },
+  };
+
+  const inputClass = `w-full transition-all duration-300 ${
     theme === "dark"
-      ? "bg-slate-800/50 hover:bg-slate-800"
+      ? "bg-slate-800/30 hover:bg-slate-800/50"
       : "bg-slate-50 hover:bg-slate-100"
   }`;
 
@@ -84,7 +114,6 @@ const ManagerAddProduct = () => {
             : "bg-white border-slate-200 shadow-slate-200"
         }`}
       >
-        {/* Header Area */}
         <div className="text-center mb-10">
           <h1
             className={`sm:text-3xl text-2xl md:text-4xl font-black tracking-tighter mb-3 ${
@@ -113,6 +142,7 @@ const ManagerAddProduct = () => {
               label="Product Owner"
               value={productOwner}
               className={inputClass}
+              sx={muiFieldStyle}
               InputProps={{
                 readOnly: true,
                 startAdornment: (
@@ -120,10 +150,6 @@ const ManagerAddProduct = () => {
                     <MdMailOutline className="text-sky-500" />
                   </InputAdornment>
                 ),
-                sx: {
-                  borderRadius: "16px",
-                  color: theme === "dark" ? "white" : "inherit",
-                },
               }}
             />
 
@@ -134,16 +160,13 @@ const ManagerAddProduct = () => {
                 name="title"
                 required
                 className={inputClass}
+                sx={muiFieldStyle}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
                       <MdShoppingCart className="text-sky-500" />
                     </InputAdornment>
                   ),
-                  sx: {
-                    borderRadius: "16px",
-                    color: theme === "dark" ? "white" : "inherit",
-                  },
                 }}
               />
               <TextField
@@ -154,16 +177,13 @@ const ManagerAddProduct = () => {
                 defaultValue="Accessories"
                 required
                 className={inputClass}
+                sx={muiFieldStyle}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
                       <MdCategory className="text-sky-500" />
                     </InputAdornment>
                   ),
-                  sx: {
-                    borderRadius: "16px",
-                    color: theme === "dark" ? "white" : "inherit",
-                  },
                 }}
               >
                 <MenuItem value="Shirt">Shirt</MenuItem>
@@ -181,12 +201,7 @@ const ManagerAddProduct = () => {
               name="description"
               required
               className={inputClass}
-              InputProps={{
-                sx: {
-                  borderRadius: "16px",
-                  color: theme === "dark" ? "white" : "inherit",
-                },
-              }}
+              sx={muiFieldStyle}
             />
           </div>
 
@@ -207,16 +222,13 @@ const ManagerAddProduct = () => {
                 name="price"
                 required
                 className={inputClass}
+                sx={muiFieldStyle}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
                       <MdAttachMoney className="text-emerald-500" />
                     </InputAdornment>
                   ),
-                  sx: {
-                    borderRadius: "16px",
-                    color: theme === "dark" ? "white" : "inherit",
-                  },
                 }}
               />
               <TextField
@@ -226,16 +238,13 @@ const ManagerAddProduct = () => {
                 name="quantity"
                 required
                 className={inputClass}
+                sx={muiFieldStyle}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
                       <MdProductionQuantityLimits className="text-emerald-500" />
                     </InputAdornment>
                   ),
-                  sx: {
-                    borderRadius: "16px",
-                    color: theme === "dark" ? "white" : "inherit",
-                  },
                 }}
               />
               <TextField
@@ -245,12 +254,7 @@ const ManagerAddProduct = () => {
                 name="moq"
                 required
                 className={inputClass}
-                InputProps={{
-                  sx: {
-                    borderRadius: "16px",
-                    color: theme === "dark" ? "white" : "inherit",
-                  },
-                }}
+                sx={muiFieldStyle}
               />
             </div>
           </div>
@@ -270,39 +274,31 @@ const ManagerAddProduct = () => {
               name="images"
               required
               className={inputClass}
+              sx={muiFieldStyle}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
                     <MdCloudUpload className="text-indigo-500" />
                   </InputAdornment>
                 ),
-                sx: {
-                  borderRadius: "16px",
-                  color: theme === "dark" ? "white" : "inherit",
-                },
               }}
             />
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-              <div className="md:col-span-1">
-                <TextField
-                  fullWidth
-                  label="Demo Video URL"
-                  name="demoVideo"
-                  className={inputClass}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <MdVideoLibrary className="text-indigo-500" />
-                      </InputAdornment>
-                    ),
-                    sx: {
-                      borderRadius: "16px",
-                      color: theme === "dark" ? "white" : "inherit",
-                    },
-                  }}
-                />
-              </div>
+              <TextField
+                fullWidth
+                label="Demo Video URL"
+                name="demoVideo"
+                className={inputClass}
+                sx={muiFieldStyle}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <MdVideoLibrary className="text-indigo-500" />
+                    </InputAdornment>
+                  ),
+                }}
+              />
               <TextField
                 select
                 fullWidth
@@ -311,7 +307,7 @@ const ManagerAddProduct = () => {
                 defaultValue="PayFirst"
                 required
                 className={inputClass}
-                InputProps={{ sx: { borderRadius: "16px" } }}
+                sx={muiFieldStyle}
               >
                 <MenuItem value="CashOnDelivery">COD</MenuItem>
                 <MenuItem value="PayFirst">Prepaid</MenuItem>
@@ -323,7 +319,7 @@ const ManagerAddProduct = () => {
                 name="showOnHome"
                 defaultValue="false"
                 className={inputClass}
-                InputProps={{ sx: { borderRadius: "16px" } }}
+                sx={muiFieldStyle}
               >
                 <MenuItem value="false">Hidden</MenuItem>
                 <MenuItem value="true">Visible</MenuItem>
@@ -331,7 +327,6 @@ const ManagerAddProduct = () => {
             </div>
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full py-3 rounded-2xl font-black text-lg text-white transition-all duration-300 transform hover:-translate-y-1 active:scale-95 bg-linear-to-r from-sky-500 via-indigo-500 to-purple-600 shadow-md shadow-sky-400/40 hover:shadow-sky-500/70 hover:shadow-lg"
