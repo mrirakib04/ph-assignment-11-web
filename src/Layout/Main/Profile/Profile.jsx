@@ -96,11 +96,14 @@ const Profile = () => {
       </HeadProvider>
 
       <div className="max-w-6xl mx-auto px-5">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start justify-center">
           {/* Left Side: Profile Card */}
-          <div className="lg:col-span-5 w-full" data-aos="fade-right">
+          <div
+            className="lg:col-span-5 w-full flex h-full"
+            data-aos="fade-right"
+          >
             <div
-              className={`relative overflow-hidden p-4 sm:p-8 rounded-[2.5rem] border transition-all duration-300 ${
+              className={`relative overflow-hidden w-full p-4 sm:p-8 rounded-[2.5rem] border transition-all duration-300 ${
                 theme === "dark"
                   ? "bg-slate-900 border-slate-800 shadow-2xl"
                   : "bg-white border-gray-100 shadow-xl"
