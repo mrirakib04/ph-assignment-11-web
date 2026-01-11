@@ -13,6 +13,7 @@ import { MdClose, MdLocalShipping, MdPerson } from "react-icons/md";
 import MainContext from "../../../../Context/MainContext";
 import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
 import Loader from "../../../../Components/Loader";
+import { HeadProvider, Title } from "react-head";
 
 const trackingStatuses = [
   "Cutting Completed",
@@ -111,6 +112,9 @@ const ManagerApprovedOrders = () => {
         theme === "dark" ? "bg-[#020617]" : "bg-slate-50"
       }`}
     >
+      <HeadProvider>
+        <Title>Manage Approved Orders || NextRun Tracker</Title>
+      </HeadProvider>
       <div
         className={`max-w-6xl mx-auto p-3 sm:p-6 md:p-10 rounded-[2.5rem] border backdrop-blur-xl transition-all duration-500 shadow-2xl ${
           theme === "dark"

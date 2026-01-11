@@ -106,7 +106,7 @@ const ManagerPendingOrders = () => {
       }`}
     >
       <HeadProvider>
-        <Title>Pending Orders || Dashboard</Title>
+        <Title>Manage Pending Orders || NextRun Tracker</Title>
       </HeadProvider>
 
       <div

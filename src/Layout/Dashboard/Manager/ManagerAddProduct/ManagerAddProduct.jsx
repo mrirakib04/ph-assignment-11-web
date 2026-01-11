@@ -13,6 +13,7 @@ import {
   MdShoppingCart,
   MdMailOutline,
 } from "react-icons/md";
+import { HeadProvider, Title } from "react-head";
 
 const ManagerAddProduct = () => {
   const { user, theme } = useContext(MainContext);
@@ -107,6 +108,9 @@ const ManagerAddProduct = () => {
         theme === "dark" ? "bg-[#020617]" : "bg-slate-50"
       }`}
     >
+      <HeadProvider>
+        <Title>Add Product || NextRun Tracker</Title>
+      </HeadProvider>
       <div
         className={`max-w-4xl mx-auto sm:p-6 p-3 md:p-12 rounded-[2.5rem] border backdrop-blur-xl transition-all duration-500 shadow-2xl ${
           theme === "dark"

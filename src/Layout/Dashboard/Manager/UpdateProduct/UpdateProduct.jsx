@@ -14,6 +14,7 @@ import {
   MdVideoLibrary,
   MdMailOutline,
 } from "react-icons/md";
+import { HeadProvider, Title } from "react-head";
 
 const UpdateProduct = () => {
   const { id } = useParams();
@@ -109,6 +110,9 @@ const UpdateProduct = () => {
         theme === "dark" ? "bg-[#020617]" : "bg-slate-50"
       }`}
     >
+      <HeadProvider>
+        <Title>Update Product || NextRun Tracker</Title>
+      </HeadProvider>
       <div
         className={`max-w-4xl mx-auto sm:p-6 p-4 md:p-12 rounded-[2.5rem] border backdrop-blur-xl transition-all duration-500 shadow-2xl ${
           theme === "dark"

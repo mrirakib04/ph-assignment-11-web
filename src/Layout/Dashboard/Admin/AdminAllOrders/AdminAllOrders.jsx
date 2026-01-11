@@ -36,6 +36,7 @@ import {
   MdSearch,
   MdFilterList,
 } from "react-icons/md";
+import { HeadProvider, Title } from "react-head";
 
 const statuses = ["pending", "approved", "rejected", "cancelled"];
 const trackingStatuses = [
@@ -163,6 +164,9 @@ const AdminAllOrders = () => {
           : "bg-gray-50 text-gray-900"
       }`}
     >
+      <HeadProvider>
+        <Title>Admin All Orders || NextRun Tracker</Title>
+      </HeadProvider>
       <div className="max-w-7xl mx-auto">
         <div className="mb-8">
           <h1 className="md:text-3xl sm:text-2xl text-xl font-black uppercase tracking-tighter">

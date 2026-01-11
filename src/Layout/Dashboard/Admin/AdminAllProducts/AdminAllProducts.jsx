@@ -90,7 +90,7 @@ const AdminAllProducts = () => {
       }`}
     >
       <HeadProvider>
-        <Title>Products Management || Admin</Title>
+        <Title>Products Management || NextRun Tracker</Title>
       </HeadProvider>
 
       <div className="max-w-7xl mx-auto">

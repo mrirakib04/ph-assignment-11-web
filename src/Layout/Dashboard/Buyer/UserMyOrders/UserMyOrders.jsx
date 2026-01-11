@@ -24,6 +24,7 @@ import Swal from "sweetalert2";
 import Loader from "../../../../Components/Loader";
 import MainContext from "../../../../Context/MainContext";
 import useAxiosPublic from "../../../../Hooks/useAxiosPublic";
+import { HeadProvider, Title } from "react-head";
 
 const UserMyOrders = () => {
   const { user, theme } = useContext(MainContext);
@@ -133,6 +134,9 @@ const UserMyOrders = () => {
         theme === "dark" ? "bg-[#020617]" : "bg-slate-50"
       }`}
     >
+      <HeadProvider>
+        <Title>My Orders || NextRun Tracker</Title>
+      </HeadProvider>
       <div
         className={`max-w-6xl mx-auto p-3 sm:p-6 md:p-10 rounded-3xl sm:rounded-[2.5rem] border backdrop-blur-xl transition-all duration-500 shadow-2xl ${
           theme === "dark"
