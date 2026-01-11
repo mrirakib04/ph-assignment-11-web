@@ -30,7 +30,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b ${
+      className={`fixed max-w-[1480px] mx-auto w-full z-50 transition-all duration-300 border-b ${
         theme === "dark"
           ? "bg-slate-900/80 text-white border-slate-800 shadow-sky-900/20"
           : "bg-white/80 text-black border-gray-200"
