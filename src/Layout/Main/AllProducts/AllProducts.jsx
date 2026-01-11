@@ -74,10 +74,10 @@ const AllProducts = () => {
         {/* Header Section */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
           <div>
-            <h1 className="text-3xl md:text-4xl font-black uppercase tracking-tighter">
+            <h1 className="sm:text-3xl text-2xl md:text-4xl font-black uppercase tracking-tighter">
               Explore <span className="text-sky-500">Collection</span>
             </h1>
-            <p className="text-sm font-bold opacity-60 uppercase tracking-widest mt-1">
+            <p className="text-sm font-semibold sm:font-bold opacity-60 uppercase tracking-widest mt-1">
               Premium Gear for your Next Run
             </p>
           </div>
