@@ -10,10 +10,13 @@ import {
   MdListAlt,
   MdOutlinePendingActions,
 } from "react-icons/md";
-import { FiFileText } from "react-icons/fi";
+import { FiFileText, FiMoon, FiSun } from "react-icons/fi";
 import { FaHome } from "react-icons/fa";
+import { useContext } from "react";
+import MainContext from "../Context/MainContext";
 
 const Sidebar = ({ role }) => {
+  const { theme, toggleTheme } = useContext(MainContext);
   const fixedRole = role?.toLowerCase() || "";
 
   const commonLinks = [
@@ -85,40 +88,85 @@ const Sidebar = ({ role }) => {
   };
 
   return (
-    <div className="w-full h-full bg-green-200 sm:p-4 p-1 space-y-2">
-      {renderLinks().map((item) => {
-        if (item.role && item.role !== fixedRole) return null;
-
-        return (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            className={({ isActive }) =>
-              `flex items-center gap-2 px-3 py-2 rounded-md font-medium ${
-                isActive
-                  ? "bg-green-500 text-white"
-                  : "text-black hover:bg-green-300"
-              }`
-            }
+    <div
+      className={`w-full h-full transition-colors flex flex-col justify-between duration-500 sm:p-4 p-1 space-y-2 border-r ${
+        theme === "dark"
+          ? "bg-slate-900 border-slate-800"
+          : "bg-white border-slate-100 shadow-sm"
+      }`}
+    >
+      {/* Brand Section (Optional - Added for Theme consistency) */}
+      <div>
+        <div className="sm:mb-8 mb-4 lg:px-3 flex items-center gap-2 justify-between">
+          <h2
+            className={`text-xl font-black hidden lg:block tracking-tighter ${
+              theme === "dark" ? "text-white" : "text-slate-900"
+            }`}
           >
-            <span className="text-xl">{item.icon}</span>
+            Next<span className="text-sky-500">Run</span>
+          </h2>
+          {/* Theme Toggle Button */}
+          <button
+            onClick={toggleTheme}
+            className={`p-2.5 rounded-full border transition-all duration-300 hover:scale-110 ${
+              theme === "dark"
+                ? "bg-slate-800 border-sky-500 text-yellow-400"
+                : "bg-gray-100 border-gray-300 text-sky-600"
+            }`}
+          >
+            {theme === "light" ? <FiMoon size={20} /> : <FiSun size={20} />}
+          </button>
+        </div>
 
-            {/* desktop text */}
-            <span className="lg:flex hidden lg:text-sm xl:text-base">
-              {item.label}
-            </span>
-          </NavLink>
-        );
-      })}
-      <Link
-        to={"/"}
-        className="flex items-center gap-2 px-3 py-2 rounded-md font-medium text-black hover:bg-orange-300"
+        <div className="space-y-1">
+          {renderLinks().map((item) => {
+            if (item.role && item.role !== fixedRole) return null;
+
+            return (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                className={({ isActive }) =>
+                  `flex items-center gap-2 px-3 py-2 rounded-xl font-medium transition-all duration-300 ${
+                    isActive
+                      ? "bg-sky-500 text-white shadow-lg shadow-sky-500/30"
+                      : theme === "dark"
+                      ? "text-slate-400 hover:bg-slate-800 hover:text-white"
+                      : "text-slate-600 hover:bg-slate-100 hover:text-sky-600"
+                  }`
+                }
+              >
+                <span className="text-xl">{item.icon}</span>
+
+                {/* desktop text */}
+                <span className="lg:flex hidden lg:text-sm xl:text-base">
+                  {item.label}
+                </span>
+              </NavLink>
+            );
+          })}
+        </div>
+      </div>
+
+      <div
+        className={`pt-4 border-t ${
+          theme === "dark" ? "border-slate-800" : "border-slate-100"
+        }`}
       >
-        <FaHome className="text-xl" />
-        <span className="lg:flex hidden lg:text-sm xl:text-base">
-          Back Home
-        </span>
-      </Link>
+        <Link
+          to={"/"}
+          className={`flex items-center gap-2 px-3 py-2 rounded-xl font-medium transition-all duration-300 ${
+            theme === "dark"
+              ? "text-slate-400 hover:bg-rose-500/10 hover:text-rose-400"
+              : "text-slate-600 hover:bg-rose-50 hover:text-rose-500"
+          }`}
+        >
+          <FaHome className="text-xl" />
+          <span className="lg:flex hidden lg:text-sm xl:text-base">
+            Back Home
+          </span>
+        </Link>
+      </div>
     </div>
   );
 };
