@@ -278,7 +278,7 @@ const ManagerApprovedOrders = () => {
         </DialogTitle>
 
         <DialogContent sx={{ p: 3 }}>
-          <form onSubmit={handleAddTracking} className="space-y-5">
+          <form onSubmit={handleAddTracking} className="space-y-5!">
             <TextField
               label="Current Location"
               required
